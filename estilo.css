@@ -1,0 +1,23 @@
+h1,h2, h3, h4 {
+    /*color: blue;
+    background-color: green*/
+}
+
+.titulos {
+    background-color: purple;
+    color: black;
+
+    padding: 10px 20px 30px 40px;
+    border: 5px dotted pink;
+    margin: 20px 40px 30px 10px;
+
+}
+
+.input-bao{
+    padding: 10px;
+}
+
+#paragrafos {
+    background-color: aqua;
+
+}

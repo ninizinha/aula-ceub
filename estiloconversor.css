@@ -1,0 +1,33 @@
+body {
+    background-image: url(Chico-Moedas-pod-delas-Reproducao.png);
+}
+
+#titulo{
+    color: white;
+
+}
+input, select, button {
+    padding:10px;
+}
+
+.container {
+    border: 2px solid #FF6347;
+    padding: 50px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#titulo {
+    margin-bottom: 50px;
+}
+
+#resultado {
+    margin-top: 50px;
+}
+
+#resultado {
+    color: white;
+}
+
+
+
