@@ -17,6 +17,21 @@ input, select, button {
     margin-top: 50px;
 }
 
+.mensagem-usuario{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: azure;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.oculto{
+    display: none;
+}
+
 #titulo {
     margin-bottom: 50px;
 }
