@@ -33,9 +33,6 @@ if(localStorage.getItem("aceitouCookie" == "1")){
 
 }
 
-function salvaResultadoHistorico(conversao){
-    localStorage.setItem("historico", conversao);
-}
 
 
 let valorUsuario = document.getElementById("valor-usuario");
@@ -56,6 +53,27 @@ valorUsuario.addEventListener("keypress", function(event) {
     }
 
 });
+
+function salvaResultadoHistorico(conversao) {
+
+    let historico = recuperarHistoricodeConversoes();
+
+    historico.push(conversao);
+
+    let conversaoEmJson = JSON.stringify(historico);
+    localStorage.setItem("historico", historico);
+}
+
+function recuperarHistoricodeConversoes(){
+    let historico = localStorage.getItem("historico");
+
+    if(!historico){
+        
+        return[];
+    }
+    let historicoConvertido = JSON.parse(historico);
+    return historicoConvertido;
+}
 
 
 
@@ -89,6 +107,11 @@ function converter() {
         return;
     }
 
+    if(valorUsuario < 0){
+        alert("Valor não pode ser negativo");
+        return;
+    }
+
     if(moedaOrigem == moedaDestino){
         alert("As moedas são iguais, não é possível converter");
         return;
@@ -119,10 +142,7 @@ let resultadoDaConversao = {
     resultado: conversao
 }
 
-salvaResultadoNoHistorico(resultadoDaConversao);
-
 }
-
 function inverter(){
     let moeda1 = document.getElementById("moeda1").value;
     let moeda2 = document.getElementById("moeda2").value;
