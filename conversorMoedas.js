@@ -1,18 +1,3 @@
-let valoresConversao = {
-    real: {
-        dolar: 0.27,
-        euro: 0.18
-    },
-    dolar: {
-        real: 5.03,
-        euro: 0.92,
-    },
-    euro: {
-        real: 5.47,
-        dolar: 0.92
-    }
-}
-
 
 
 let botaoConverter= document.getElementById("botao-converter");
@@ -32,6 +17,26 @@ if(localStorage.getItem("aceitouCookie" == "1")){
     aceitaMensagem();
 
 }
+
+function buscaAPI(moedaOrigem="USD", moedaDestino="BRL"){
+    let parametro= moedaOrigem + "-" + moedaDestino;
+    let url =" https://economia.awesomeapi.com.br/json/last/" + parametro;
+
+    console.log(url);
+
+    return fetch(url).then(function(data){
+        if(data.status == 200){
+            console.log("retorno ok 200 API");
+        }
+       
+        return data.json();
+    }).then(function(response){
+       
+        return response[moedaOrigem + moedaDestino];
+    }).catch();
+
+}
+
 
 
 
@@ -97,10 +102,33 @@ function limpar(){
 
 
 function converter() {
+
+
+
     let valorUsuario = document.getElementById("valor-usuario").value;
 
     let moedaOrigem = document.getElementById("moeda1").value;
     let moedaDestino = document.getElementById("moeda2").value;
+    
+
+
+
+/*
+    if (moedaOrigem =="real"){
+        urlAPIParametroMoedaOrigem ="BRL";
+
+    }
+
+    if (moedaOrigem =="euro"){
+        urlAPIParametroMoedaOrigem ="EUR";
+        
+    }
+
+    if (moedaOrigem =="dolar"){
+        urlAPIParametroMoedaOrigem ="USD";
+        
+    }
+    */
 
     if(valorUsuario == ""){
         alert("Valor não pode ser vazio!")
@@ -118,29 +146,42 @@ function converter() {
         
     }
 
-    let conversao = valorUsuario * valoresConversao[moedaOrigem][moedaDestino];
+    buscaAPI(moedaOrigem, moedaDestino).then(function(data){
+        let conversao = valorUsuario * data["ask"];
 
-    let simbolo = "";
-    if (moedaDestino == "real"){
-        simbolo = "R$"
-    }
-    if (moedaDestino == "dolar"){
-        simbolo = "US$"
-    }
-    if (moedaDestino == "euro"){
-        simbolo = "€";
-    }
+        console.log(data);
+
+        let simbolo = "";
+        if (moedaDestino == "BRL"){
+            simbolo = "R$"
+        }
+        if (moedaDestino == "USD"){
+            simbolo = "US$"
+        }
+        if (moedaDestino == "EUR"){
+            simbolo = "€";
+        }
+        if (moedaDestino == "GBP"){
+            simbolo = "£";
+        }
 
 
-let paragrafoResultado = document.getElementById("resultado");
-paragrafoResultado.textContent = simbolo + " " + conversao.toFixed(2);
+        let resultado = document.getElementById("resultado");
+        resultado.textContent = simbolo + " " + conversao.toFixed(2);
 
-let resultadoDaConversao = {
-    valor: valorUsuario,
-    moeda1: moeda1,
-    moeda2: moedaDestino,
-    resultado: conversao
-}
+        let resultadoDaConversao = {
+            valor: valorUsuario,
+            moeda1: moeda1,
+            moeda2: moedaDestino,
+            resultado: conversao
+        }
+
+        console.log(conversao);
+    });
+    return;
+
+
+
 
 }
 function inverter(){
