@@ -1,4 +1,4 @@
 # programacao-web-ceub
-Repositório da disciplina de programação web CEUB do Jon Vlogs
+Repositório da disciplina de programação web CEUB 
 
-eu me amo 
+
